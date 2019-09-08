@@ -1,0 +1,8 @@
+@include('purchase.index')
+@include('purchase.index')
+@include('purchase.index')
+@include('purchase.index')
+@include('purchase.index')
+@include('purchase.index')
+@include('purchase.index')
+@include('purchase.index')
