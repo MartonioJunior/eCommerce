@@ -48,9 +48,15 @@
 	@include('client.show')
 	<h1 class="my-4"><b>Produtos não disponíveis</b></h1>
 	<div class="row col-lg-12 center">
-		@include('product.display')
-		@include('product.display')
-		@include('product.display')
-		@include('product.display')
+		@include('product.index')
+		@include('product.index')
+		@include('product.index')
+		@include('product.index')
 	</div>
+	<h3 class="my-2">Outras opções</h3>
+	<form action="{{ url('admin/delete') }}" method="delete" enctype="multipart/form-data">
+		<h5 type="submit" class="btn btn-danger btn-block btn-flat">Excluir conta</h5>
+	</form>
+	<div class="py-4"></div>
+	<div class="py-4"></div>
 @endsection

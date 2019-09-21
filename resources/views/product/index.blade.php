@@ -8,8 +8,6 @@
             <h4>Categoria</h4>
             <h5>R$2.99</h5>
             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-            <button class="btn btn-primary">Comprar</button>
         </div>
-        <h5 class="card-footer h-25">5 restantes</h5>
     </div>
 </div>
