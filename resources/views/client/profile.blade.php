@@ -3,7 +3,6 @@
 @section('content')
 	<div class="row my-4">
 		<h1 class="col-md-10"><b>Meu Perfil</b></h1>
-		<a href="/auth/logout" class="btn btn-secondary col-md-2 h-50">Sair da Conta</a>
 	</div>
 	<div class="row my-4 card">
 		<div class="col-md-12 my-4">
@@ -14,31 +13,31 @@
 				<div class="row form-group">
 			        <label for="name" class="col-sm-2 control-label">Nome</label>
 			        <div class="col-md-10">
-			            <input type="text" name="nome" class="form-control" value="Lucas" placeholder="Nome">
+			            <input type="text" name="nome" class="form-control" value="{{ Auth::user()->name }}" placeholder="Nome">
 			        </div>
 			    </div>
 			    <div class="row form-group">
 			    	<label for="name" class="col-sm-2 control-label">Email</label>
 			    	<div class="col-md-10">
-		            	<input type="email" name="email" class="form-control" placeholder="Email" value="lucas@gmail.com">
+		            	<input type="email" name="email" class="form-control" placeholder="Email" value="{{ Auth::user()->email }}">
 		            </div>
 		        </div>
 			    <div class="row form-group">
 			        <label for="name" class="col-sm-2 control-label">Endereço</label>
 			        <div class="col-md-10">
-			            <input type="text" name="endereco" class="form-control" value="Rua das Palmeiras, 1564, Teresina, PI" placeholder="Endereço">
+			            <input type="text" name="endereco" class="form-control" value="{{ Auth::user()->address }}" placeholder="Endereço">
 			        </div>
 			    </div>
 				<div class="row form-group">
 			        <label for="name" class="col-sm-2 control-label">Nova Senha</label>
 			        <div class="col-md-10">
-			            <input type="password" name="senha" class="form-control" value="12345" placeholder="Senha">
+			            <input type="password" name="senha" class="form-control" value="" placeholder="Senha">
 			        </div>
 			    </div>
 			    <div class="row form-group">
 			        <label for="name" class="col-sm-2 control-label">Confirmar Nova Senha</label>
 			        <div class="col-md-10">
-			            <input type="password" name="novaSenha" class="form-control" value="12345" placeholder="Nova senha">
+			            <input type="password" name="novaSenha" class="form-control" value="" placeholder="Senha">
 			        </div>
 			    </div>
 				<a href="/client/edit">

@@ -6,9 +6,11 @@
     </button>
     <div class="navbar-collapse collapse" id="navbarResponsive" style="">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/client/profile">Perfil</a>
-        </li>
+        @if(Auth::check())
+          <li class="nav-item">
+            <a class="nav-link" href="/client/profile">{{ Auth::user()->name }}</a>
+          </li>
+        @endif
         <li class="nav-item">
           <a class="nav-link" href="/product">Produtos</a>
         </li>
@@ -16,7 +18,14 @@
           <a class="nav-link" href="/cart">Carrinho</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/auth/login">Entrar</a>
+          @if(!Auth::check())
+          <a class="nav-link" href="/login">
+            Entrar
+          @else
+          <a class="nav-link" href="/logout">
+            Sair
+          @endif
+          </a>
         </li>
       </ul>
     </div>

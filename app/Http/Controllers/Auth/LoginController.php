@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -25,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/client/profile';
 
     /**
      * Create a new controller instance.
@@ -35,5 +37,63 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->middleware('guest:client')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
     }
+
+    public function clientLoginForm() {
+        return $this->loginForm('client');
+    }
+
+    public function adminLoginForm() {
+        return $this->loginForm('admin');
+    }
+
+    public function loginForm($profileType) {
+        return view('auth.login', ['url' => $profileType]);
+    }
+
+    public function clientLogin(Request $request)
+    {
+        return $this->login($request, 'client');
+    }
+
+    public function adminLogin(Request $request)
+    {
+        return $this->login($request, 'admin');
+    }
+
+    public function login(Request $request, $profileType)
+    {
+        $this->validate($request, [
+            'login'   => 'required',
+            'password' => 'required|min:8'
+        ]);
+
+        if (Auth::guard($profileType)->attempt(['login' => $request->login, 'password' => $request->password], $request->remember)) {
+            return redirect()->intended('/');
+        }
+
+        return back()->withInput($request->only('login'))->withErrors([
+            'message' => 'The login or password is incorrect, please try again'
+        ]);
+    }
+
+    public function username() {
+        return 'login';
+    }
+
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return redirect()->route('login');
+    }
+
+    // protected function guard()
+    // {
+    //     return Auth::guard($guard);
+    // }
 }

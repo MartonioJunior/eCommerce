@@ -5,19 +5,19 @@
   <div class="row col-md-12">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-      <h1 class="my-4">Faça seu cadastro</h1>
+      <h1 class="my-4">Faça seu cadastro ({{ $url }})</h1>
       <div class="login-box-msg my-4">
-        <form action="{{ url('auth/signup') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route($url . 'Signup') }}" method="post" enctype="multipart/form-data">
           <input type="hidden" value="{{ csrf_token() }}" name="_token"/>
 
           <div class="form-group has-feedback">
             <input type="name" name="name" class="form-control" placeholder="Nome">
           </div>
-
-          <div class="form-group has-feedback">
-            <input type="name" name="endereco" class="form-control" placeholder="Endereço">
-          </div>
-
+          @if($url != "admin")
+            <div class="form-group has-feedback">
+              <input type="name" name="address" class="form-control" placeholder="Endereço">
+            </div>
+          @endif
           <div class="form-group has-feedback">
             <input type="email" name="email" class="form-control" placeholder="Email">
           </div>

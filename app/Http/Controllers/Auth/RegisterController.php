@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Client;
+use App\Business\ClientBusiness;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -28,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = 'client';
 
     /**
      * Create a new controller instance.
@@ -37,7 +39,58 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest:client');
+    }
+
+    public function clientRegisterForm()
+    {
+        return view('auth.signup', ['url' => 'client']);
+    }
+
+    public function adminRegisterForm()
+    {
+        return view('auth.signup', ['url' => 'admin']);
+    }
+
+    public function registerClient(Request $request) {
+        $this->validate($request,[
+            'name' => 'required',
+            'email' => 'required|email',
+            'address' => 'required',
+            'login' => 'required',
+            'password' => 'required'
+        ]);
+
+        if ($request->input('password') != $request->input('password_confirmation')) {
+            return;
+        }
+        $data = [
+            'name' => $request->input('name'),
+            'login' => $request->input('login'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+            'address' => $request->input('address'),
+        ];
+        $client = RegisterController::createClient($data);
+        $client->save();
+        auth()->login($client, true);
+        return redirect()->to('/');
+    }
+
+    public function registerAdmin(Request $request) {
+        if ($request->input('password') != $request->input('password_confirmation')) {
+            return;
+        }
+        $data = [
+            'name' => $request->input('name'),
+            'login' => $request->input('login'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+        ];
+        $admin = RegisterController::createAdmin($data);
+        $admin->save();
+        auth()->login($admin, true);
+        return redirect()->to('/');
     }
 
     /**
@@ -50,23 +103,20 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'login' => ['required', 'string', 'max:40'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'address' => ['required', 'string', 'max:255'],
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function create(array $data)
+    protected function createClient(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        return ClientBusiness::create($data['name'], $data['email'], $data['login'], Hash::make($data['password']), $data['address']);
+    }
+
+    protected function createAdmin(array $data)
+    {
+        return AdminBusiness::create($data['name'], $data['email'], $data['login'], Hash::make($data['password']));
     }
 }
