@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Client;
 use App\Business\ClientBusiness;
+use App\Business\AdminBusiness;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -104,7 +105,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'login' => ['required', 'string', 'max:40'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'address' => ['required', 'string', 'max:255'],
         ]);

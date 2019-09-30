@@ -7,7 +7,7 @@
     <div class="col-md-4">
       <h1 class="my-4">Faça seu cadastro ({{ $url }})</h1>
       <div class="login-box-msg my-4">
-        <form action="{{ route($url . 'Signup') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route($url.'Signup') }}" method="post" enctype="multipart/form-data">
           <input type="hidden" value="{{ csrf_token() }}" name="_token"/>
 
           <div class="form-group has-feedback">

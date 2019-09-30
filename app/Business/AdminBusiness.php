@@ -23,7 +23,7 @@ class AdminBusiness {
 		$admin->password = $password;
 		$admin->save();
 		
-		return $admin
+		return $admin;
 	}
 
 	public static function update($id, $newData) {
