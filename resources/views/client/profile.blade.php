@@ -13,19 +13,19 @@
 				<div class="row form-group">
 			        <label for="name" class="col-sm-2 control-label">Nome</label>
 			        <div class="col-md-10">
-			            <input type="text" name="nome" class="form-control" value="{{ Auth::user()->name }}" placeholder="Nome">
+			            <input type="text" name="nome" class="form-control" value="{{ Auth::guard('client')->user()->name }}" placeholder="Nome">
 			        </div>
 			    </div>
 			    <div class="row form-group">
 			    	<label for="name" class="col-sm-2 control-label">Email</label>
 			    	<div class="col-md-10">
-		            	<input type="email" name="email" class="form-control" placeholder="Email" value="{{ Auth::user()->email }}">
+		            	<input type="email" name="email" class="form-control" placeholder="Email" value="{{ Auth::guard('client')->user()->email }}">
 		            </div>
 		        </div>
 			    <div class="row form-group">
 			        <label for="name" class="col-sm-2 control-label">Endereço</label>
 			        <div class="col-md-10">
-			            <input type="text" name="endereco" class="form-control" value="{{ Auth::user()->address }}" placeholder="Endereço">
+			            <input type="text" name="endereco" class="form-control" value="{{ Auth::guard('client')->user()->address }}" placeholder="Endereço">
 			        </div>
 			    </div>
 				<div class="row form-group">

@@ -6,9 +6,13 @@
     </button>
     <div class="navbar-collapse collapse" id="navbarResponsive" style="">
       <ul class="navbar-nav ml-auto">
-        @if(Auth::check())
+        @if(Auth::guard('client')->check())
           <li class="nav-item">
-            <a class="nav-link" href="/client/profile">{{ Auth::user()->name }}</a>
+            <a class="nav-link" href="/client/profile">{{ Auth::guard('client')->user()->name }}</a>
+          </li>
+        @elseif(Auth::guard('admin')->check())
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/profile">{{ Auth::guard('admin')->user()->name }}</a>
           </li>
         @endif
         <li class="nav-item">

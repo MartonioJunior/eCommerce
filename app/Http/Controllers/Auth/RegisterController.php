@@ -74,23 +74,32 @@ class RegisterController extends Controller
         ];
         $client = RegisterController::createClient($data);
         $client->save();
-        auth()->login($client, true);
+        auth('client')->login($client, true);
         return redirect()->to('/');
     }
 
     public function registerAdmin(Request $request) {
+        $this->validate($request,[
+            'name' => 'required',
+            'email' => 'required|email',
+            'login' => 'required',
+            'password' => 'required'
+        ]);
+
         if ($request->input('password') != $request->input('password_confirmation')) {
             return;
         }
+
         $data = [
             'name' => $request->input('name'),
             'login' => $request->input('login'),
             'email' => $request->input('email'),
             'password' => $request->input('password'),
         ];
+
         $admin = RegisterController::createAdmin($data);
         $admin->save();
-        auth()->login($admin, true);
+        auth('admin')->login($admin, true);
         return redirect()->to('/');
     }
 
@@ -100,6 +109,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+    /*
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -110,6 +120,7 @@ class RegisterController extends Controller
             'address' => ['required', 'string', 'max:255'],
         ]);
     }
+    */
 
     protected function createClient(array $data)
     {

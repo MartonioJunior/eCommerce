@@ -37,5 +37,5 @@ Route::group(['middleware' => 'guest'], function() {
 	Route::post('/login/client', 'Auth\LoginController@clientLogin')->name('clientLogin');
 	Route::post('/login/admin', 'Auth\LoginController@adminLogin')->name('adminLogin');
 	Route::post('/signup/client', 'Auth\RegisterController@registerClient')->name('clientSignup');
-	Route::post('/signup/admin', 'Auth\RegisterController@registerClient')->name('adminSignup');
+	Route::post('/signup/admin', 'Auth\RegisterController@registerAdmin')->name('adminSignup');
 });
