@@ -7,5 +7,5 @@
     <h4 class="card-title col-lg-6 align-self-center">
         <b>Valor Total</b>
     </h4>
-    <h4 class="col-lg-6 align-self-center">R${{ $purchase->totalValue() }}</h4>
+    <h4 class="col-lg-6 align-self-center">R${{ $purchase->totalValue }}</h4>
 </div>
