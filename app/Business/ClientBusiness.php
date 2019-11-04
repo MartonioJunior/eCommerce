@@ -32,9 +32,7 @@ class ClientBusiness {
 	}
 
 	public static function delete($id) {
-		$client = Client::where('id',$id)->take(1)->get();
-		$client->user()->delete();
-		$client->delete();
+		Client::destroy($id);
 	}
 }
 

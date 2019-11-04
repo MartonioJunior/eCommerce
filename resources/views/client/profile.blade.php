@@ -49,9 +49,7 @@
 	<h1 class="my-4"><b>Minhas compras</b></h1>
 	@include('purchase.show')
 	<h3 class="my-2">Outras opções</h3>
-	<form action="{{ url('client/delete') }}" method="delete" enctype="multipart/form-data">
-		<h5 type="submit" class="btn btn-danger btn-block btn-flat">Excluir conta</h5>
-	</form>
+	<a href="{{ url('client/delete') }}" class="btn btn-danger btn-block btn-flat">Excluir conta</a>
 	<div class="py-4"></div>
 	<div class="py-4"></div>
 @endsection

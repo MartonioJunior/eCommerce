@@ -26,4 +26,8 @@ class Client extends Authenticatable
     public function purchases() {
     	return $this->hasMany('App\Models\Purchase');
     }
+
+    public function getNumberOfPurchases() {
+        return count($this->purchases);
+    }
 }

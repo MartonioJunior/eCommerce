@@ -1,27 +1,30 @@
-<div class="card">
-  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Gerenciamento de Produtos</h3>
+<div class="card" id="product">
+  <div class="row card-header py-4">
+    <h3 class="text-center font-weight-bold text-uppercase col-md-6">Gerenciamento de Produtos</h3>
+    <div class="col-md-3"><button class="col-md-12 btn btn-primary add-product">Adicionar</button></div>
+    <div class="col-md-3"><a href="admin/profile#productTable" class="col-md-12 btn btn-secondary">Cancelar</a></div>
+  </div>
   <div class="card-body">
-    <div id="table" class="table-editable">
-      <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
-            class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
-      <table class="table table-bordered table-responsive-md table-striped text-center">
+    <div id="productTable" class="table-responsive">
+      <table class="table table-bordered table-striped text-center">
         <thead>
           <tr>
-            <th class="text-center">Nome</th>
-            <th class="text-center">ID</th>
-            <th class="text-center">Preço</th>
-            <th class="text-center">Descrição</th>
-            <th class="text-center">Categoria</th>
-            <th class="text-center">Foto</th>
-            <th class="text-center">Editar</th>
-            <th class="text-center">Remover</th>
+            <th scope="col" class="text-center">ID</th>
+            <th scope="col" class="text-center">Nome</th>
+            <th scope="col" class="text-center">Quantidade</th>
+            <th scope="col" class="text-center">Preço</th>
+            <th scope="col" class="text-center">Descrição</th>
+            <th scope="col" class="text-center">Categoria</th>
+            <th scope="col" class="text-center">Foto</th>
+            <th scope="col" class="text-center">Salvar</th>
+            <th scope="col" class="text-center">Remover</th>
           </tr>
         </thead>
         <tbody>
-          @include('product.edit')
-          @include('product.edit')
-          @include('product.edit')
-          @include('product.edit')
+          @include('product.edit', ['categories' => $categories, 'attr' => "hidden"])
+          @foreach ($products as $product)
+            @include('product.edit', ['product' => $product, 'categories' => $categories])
+          @endforeach
         </tbody>
       </table>
     </div>

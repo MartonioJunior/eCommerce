@@ -9,12 +9,12 @@ class Category extends Model
     //
     protected $table = "category";
     protected $primaryKey = "id";
-    protected $timestamps = false;
+    public $timestamps = false;
     protected $atributes = [
     	'description' => ""
     ];
 
     public function products() {
-    	return $this->belongsToMany('App\Models\Product', 'category_product');
+    	return $this->belongsToMany('App\Models\Product', 'product_category');
     }
 }

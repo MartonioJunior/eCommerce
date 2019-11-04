@@ -1,0 +1,1 @@
+@each('category.index',$categories,'category')

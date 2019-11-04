@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
+	
 	<title> @yield('title','eCommerce') </title>
 	@include('includes.styles')
 </head>
@@ -23,5 +23,8 @@
 	@footer
 
 	@include('includes.scripts')
+	<script type="text/javascript">
+		@yield('scripts')
+	</script>
 </body>
 </html>

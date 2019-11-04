@@ -8,18 +8,14 @@
 	</form>
 </div>
 <div class="row col-lg-12">
-	@include('product.cart')
-	@include('product.cart')
-	@include('product.cart')
-	@include('product.cart')
-	@include('product.cart')
+	@each('product.cart', $products, 'product')
 </div>
 <div class="row py-4">
 	<div class="row col-lg-12">
 		<h4 class="card-title col-lg-10 align-self-center">
 		    <b>Valor Total</b>
 		</h4>
-		<h4 class="col-lg-2 align-self-center">R$14.95</h4>
+		<h4 class="col-lg-2 align-self-center">R$ {{ $totalValue }}</h4>
 	</div>
 	<div class="col-lg-7"></div>
 </div>

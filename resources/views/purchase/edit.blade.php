@@ -1,14 +1,11 @@
 <tr>
-  <td contenteditable="false">#32516</td>
-  <td contenteditable="false">07/09/2019</td>
-  <td contenteditable="false">52,24</td>
-  <td contenteditable="false">Lucas</td>
+  <td contenteditable="false">#{{ $purchase->id }}</td>
+  <td contenteditable="false">{{ $purchase->CREATED_AT }}</td>
+  <td contenteditable="false">R${{ $purchase->totalValue }}</td>
+  <td contenteditable="false">{{ $purchase->buyer->name }}</td>
   <td>
-    <span class="table-remove"><button type="button"
-        class="btn btn-primary btn-rounded btn-sm my-0">Visualizar</button></span>
-  </td>
-  <td>
-    <span class="table-remove"><button type="button"
-        class="btn btn-danger btn-rounded btn-sm my-0">Remover</button></span>
+    <span class="table-remove">
+      <a href="purchase/{{ $purchase->id }}/delete" class="btn btn-danger btn-block btn-flat">Remover</a>
+    </span>
   </td>
 </tr>

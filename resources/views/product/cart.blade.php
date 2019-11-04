@@ -1,10 +1,10 @@
 <div class="row card h-25">
     <div class="row card-body h-25">
-        <img class="img-fluid col-lg-2" src="http://www.bombril.com.br/media/img/upload/f992f40a-f9c7-4415-af7c-77671c15a645.png" alt="">
+        <img class="img-fluid col-lg-2 h-25" src="{{ $product->photo }}" alt="">
         <h4 class="card-title col-lg-2 align-self-center">
-            <b>Produto</b>
+            <b>{{ $product->name }}</b>
         </h4>
-        <h5 class="col-lg-2 align-self-center">R$2.99</h5>
+        <h5 class="col-lg-2 align-self-center">R${{ $product->price }}</h5>
         <div class="row col-lg-4 h-25 align-self-center">
             <button class="btn btn-primary">-</button>
             <h5 class="col-lg-2">1</h5>

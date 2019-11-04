@@ -20,7 +20,7 @@ class CategoryBusiness {
 		$category->description = $description;
 
 		$category->save();
-		return $category
+		return $category;
 	}
 
 	public static function update($id, $newData) {
@@ -28,8 +28,9 @@ class CategoryBusiness {
 	}
 
 	public static function delete($id) {
-		$category = Category::where('id',$id)->take(1)->get();
-		$category->delete();
+		$category = category::find($id);
+		$category->products()->detach();
+		category::destroy($id);
 	}
 }
 

@@ -9,7 +9,7 @@ class Product extends Model
     //
     protected $table = "product";
     protected $primaryKey = "id";
-    protected $timestamps = false;
+    public $timestamps = false;
     protected $atributes = [
     	'name' => "",
     	'price' => 0.0,
@@ -25,6 +25,6 @@ class Product extends Model
     }
 
     public function categories() {
-    	return $this->belongsToMany('App\Models\Category','category_product');
+    	return $this->belongsToMany('App\Models\Category','product_category');
     }
 }

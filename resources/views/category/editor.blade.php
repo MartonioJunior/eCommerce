@@ -1,23 +1,23 @@
-<div class="card">
-  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Gerenciamento de Categorias</h3>
+<div class="card" id="category">
+  <div class="row card-header">
+    <h3 class="text-center font-weight-bold text-uppercase col-md-6">Gerenciamento de Categorias</h3>
+    <div class="col-md-3"><button class="col-md-12 btn btn-primary add-category">Adicionar</button></div>
+    <div class="col-md-3"><a href="/admin/profile#tableCategory" class="col-md-12 btn btn-secondary">Cancelar</a></div>
+  </div>
   <div class="card-body">
-    <div id="table" class="table-editable">
-      <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
-            class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
-      <table class="table table-bordered table-responsive-md table-striped text-center">
+    <div id="categoryTable" class="table-responsive">
+      <table class="table table-bordered table-striped text-center">
         <thead>
           <tr>
-            <th class="text-center">Categoria</th>
-            <th class="text-center">ID</th>
-            <th class="text-center">Editar</th>
-            <th class="text-center">Remover</th>
+            <th scope="col" class="text-center">Categoria</th>
+            <th scope="col" class="text-center">ID</th>
+            <th scope="col" class="text-center">Salvar</th>
+            <th scope="col" class="text-center">Remover</th>
           </tr>
         </thead>
         <tbody>
-          @include('category.edit')
-          @include('category.edit')
-          @include('category.edit')
-          @include('category.edit')
+          @include('category.edit', ['attr' => "hidden"])
+          @each('category.edit', $categories, 'category')
         </tbody>
       </table>
     </div>
