@@ -67,7 +67,7 @@ class LoginController extends Controller
     {
         $this->validate($request, [
             'login'   => 'required',
-            'password' => 'required|min:8'
+            'password' => 'required'
         ]);
 
         if (Auth::guard($profileType)->attempt(['login' => $request->login, 'password' => $request->password], $request->remember)) {
