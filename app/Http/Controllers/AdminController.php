@@ -42,6 +42,6 @@ class AdminController extends Controller
     public function delete(Request $request) {
     	$id = Auth::guard('admin')->user()->id;
     	AdminBusiness::delete($id);
-    	return route('/logout');
+    	return redirect('/logout');
     }
 }

@@ -31,9 +31,7 @@ class AdminBusiness {
 	}
 
 	public static function delete($id) {
-		$admin = Admin::where('id',$id)->take(1)->get();
-		$admin->user()->delete();
-		$client->delete();
+		Admin::destroy($id);
 	}
 }
 
