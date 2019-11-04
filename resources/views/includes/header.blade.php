@@ -22,7 +22,7 @@
           <a class="nav-link" href="/cart">Carrinho</a>
         </li>
         <li class="nav-item">
-          @if(!Auth::check())
+          @if(!Auth::guard('client')->check() && !Auth::guard('admin')->check())
           <a class="nav-link" href="/login">
             Entrar
           @else
