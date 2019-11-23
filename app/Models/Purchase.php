@@ -23,8 +23,15 @@ class Purchase extends Model
     }
 
     public function getTotalValue() {
+        $total = 0.0;
         foreach ($this->products as $product) {
-
+            $price = (float)$product->price;
+            $total += ($price * $product->pivot->amount);
         }
+        return $total;
+    }
+
+    public function dateOfPurchase() {
+        return $this->CREATED_AT->format('d/m/Y');
     }
 }

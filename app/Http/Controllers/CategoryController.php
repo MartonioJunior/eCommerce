@@ -15,11 +15,11 @@ class CategoryController extends Controller
             $id = $category->id;
         } else {
             $data = [
-                'description' => $request->input("product".$id."description")
+                'description' => $request->input("category".$id."description")
             ];
-            ProductBusiness::update($id, $data);
+            CategoryBusiness::update((int)$id, $data);
         }
-    	return redirect("admin/profile#categoryTable);
+    	return redirect("admin/profile#categoryTable");
     }
 
     public function delete($id)

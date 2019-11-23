@@ -11,7 +11,7 @@
             <h5>R${{ $product->price }}</h5>
             <p class="card-text">{{ $product->description }}</p>
             @if($product->amountStock)
-                <button class="btn btn-primary">Comprar</button>
+                <a href="purchase/{{ $product->id }}/add/1" class="btn btn-primary">Comprar</a>
             @endif
         </div>
         <h5 class="card-footer h-25">{{ $product->amountStock }} restantes</h5>

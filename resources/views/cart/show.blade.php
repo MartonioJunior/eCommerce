@@ -22,3 +22,36 @@
 <div class="py-4"></div>
 <div class="py-4"></div>
 @endsection
+
+@section('scripts')
+function getElement(ID) {
+	return document.getElementById(ID);
+}
+
+function addOneToProduct(productID) {
+	var productAmountTag = getElement("amountProduct"+productID);
+	productAmountTag.innerHTML = parseInt(productAmountTag.innerHTML) + 1;
+	updateTotalValue(productID);
+}
+
+function removeOneFromProduct(productID) {
+	var productAmountTag = getElement("amountProduct"+productID);
+	if (parseInt(productAmountTag.innerHTML) > 1) {
+		productAmountTag.innerHTML = parseInt(productAmountTag.innerHTML) - 1;
+		updateTotalValue(productID);
+	} else {
+		var element = document.getElementById("product"+productID);
+		console.log(element);
+		element.parentNode.removeChild(element);
+	}
+}
+
+function updateTotalValue(productID) {
+	var productTotalValueTag = getElement("totalValueProduct"+productID);
+	productTotalValueTag.innerHTML = "<b>Total</b><br>"+
+	numeral(
+		parseFloat(getElement("priceProduct"+productID).innerHTML) * parseFloat(getElement("amountProduct"+productID).innerHTML)
+	).format('$0.00');
+}
+
+@endsection

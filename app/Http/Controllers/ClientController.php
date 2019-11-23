@@ -26,7 +26,7 @@ class ClientController extends Controller
     		'name' => $request->input('nome'),
     		'email' => $request->input('email'),
     		'address' => $request->input('endereco'),
-    		'password' => $password
+    		'password' => Hash::make($password)
     	]);
     	return;
     }

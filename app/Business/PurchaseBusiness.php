@@ -4,6 +4,7 @@ namespace App\Business;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Purchase;
+use App\Business\ProductBusiness;
 
 class PurchaseBusiness {
 	public static function listAll() {
@@ -16,8 +17,8 @@ class PurchaseBusiness {
 
 	public static function create($client, $listProducts) {
 		$purchase = new Purchase;
-		for ($productAmount in $productData) {
-			
+		for ($productAmount as $productData) {
+			$this->add($productData["id"], $this, $productData["amount"]);
 		}
 		$purchase->buyer()->attach($client);
 		$purchase->save();

@@ -33,7 +33,7 @@ class AdminController extends Controller
     		'email' => $newEmail
     	];
     	if ($newPassword != "" && $newPassword == $passwordConfirm) {
-    		$newData['password'] = $newPassword;
+    		$newData['password'] = Hash::make($newPassword);
     	}
     	AdminBusiness::update($adminID, $newData);
     	return back();

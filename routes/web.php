@@ -15,7 +15,7 @@ Route::redirect('/login','/login/client');
 
 Route::get('/', 'ProductController@productsInStock');
 Route::get('/product','ProductController@allProducts');
-Route::get('/cart','ProductController@cartProducts');
+Route::get('/cart','PurchaseController@cartProducts');
 
 Route::get('/logout', 'Auth\LoginController@logout');
 
@@ -24,6 +24,10 @@ Route::group(['middleware' => 'auth:client'], function() {
 	Route::get('/client/delete','ClientController@delete');
 	Route::post('/client/edit','ClientController@update');
 	Route::post('/purchase', function() {});
+
+	Route::get('/purchase/{id}/add/{amount}', 'PurchaseController@add');
+	Route::get('/purchase/{id}/delete','PurchaseController@delete');
+	Route::get('/purchase/save','PurchaseController@save');
 });
 
 Route::group(['middleware' => 'auth:admin'], function() {
@@ -36,9 +40,6 @@ Route::group(['middleware' => 'auth:admin'], function() {
 
 	Route::get('/category/{id}/delete','CategoryController@delete');
 	Route::post('/category/{id}/save','CategoryController@save');
-
-	Route::get('/purchase/{id}/delete','PurchaseController@delete');
-	Route::get('/purchase/save','PurchaseController@save');
 
 	Route::get('image/upload/{name}','ImageController@upload');
 });
