@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Business\ProductBusiness;
 use App\Business\PurchaseBusiness;
 
@@ -41,15 +42,39 @@ class PurchaseController extends Controller
 	}
 
     public function save(Request $request) {
-    	$product_array = getCookies();
-    	// Check if it is empty
-    	PurchaseBusiness::create(Auth::guard('client')->user(), $product_array);
-    	removeAllCookies();
+    	$product_array = [];
+    	foreach ($request->input('_productID') as $id) {
+    		$product_id = (int)$id;
+    		$item_array = [
+    			"id" => $product_id,
+    			"amount" => (int)$request->input("_productAmount".$id)
+    		];
+    		array_push($product_array, $item_array);
+    	}
+    	$result = PurchaseBusiness::create(Auth::guard('client')->user(), $product_array);
+    	if ($result === false) {
+    		return redirect("/cart");
+    	}
+    	PurchaseController::removeAllCookies();
     	return redirect("/");
     }
 
     public function delete(Request $request, $id) {
-    	$product_array = getCookies();
+    	$product_array = $this->getCookies();
+    	$indexNumber = 0;
+    	foreach ($product_array as $item) {
+    		$found = $item->id == $id;
+    		if ($found !== false) {
+    			break;
+    		}
+    		$indexNumber++;
+    	}
+    	if ($found !== false) {
+    		array_splice($product_array, $indexNumber, 1);
+    	}
+    	$array_json = json_encode($product_array);
+    	Cookie::queue('cart', $array_json, 450000);
+ 		return redirect('/cart');
     }
 
     public function getCookies() {
@@ -67,6 +92,7 @@ class PurchaseController extends Controller
     }
 
     public function removeAllCookies() {
-    	response()->withCookie(Cookie::forget('cart'));
+    	Cookie::queue('cart', "", 450000);
+ 		return redirect('/');
     }
 }

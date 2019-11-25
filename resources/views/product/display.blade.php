@@ -10,7 +10,7 @@
             @endforeach
             <h5>R${{ $product->price }}</h5>
             <p class="card-text">{{ $product->description }}</p>
-            @if($product->amountStock)
+            @if($product->amountStock > 0 && Auth::guard('client')->check())
                 <a href="purchase/{{ $product->id }}/add/1" class="btn btn-primary">Comprar</a>
             @endif
         </div>

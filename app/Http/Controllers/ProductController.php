@@ -7,18 +7,6 @@ use App\Business\ProductBusiness;
 
 class ProductController extends Controller
 {
-    public function cartProducts() {
-    	$products = [];
-    	$value = 0.0;
-    	foreach ($products as $product) {
-    		$value += $product->price;	
-    	}
-
-    	return view('cart.show', [
-    		'products' => $products,
-    		'totalValue' => $value
-    	]);
-    }
 
     public function productsInStock() {
     	return view('welcome', [
@@ -63,8 +51,6 @@ class ProductController extends Controller
             $productCategories = $product->categories->map(function ($category) {
                 return (string)$category->id;
             })->toArray();
-            var_dump($productCategories);
-            var_dump($categories);
             foreach (array_diff($productCategories, $categories) as $category) {
                 ProductBusiness::remove((int)$category, $product);
             }

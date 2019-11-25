@@ -32,6 +32,8 @@ class Purchase extends Model
     }
 
     public function dateOfPurchase() {
-        return $this->CREATED_AT->format('d/m/Y');
+        $time = strtotime($this->date_time);
+        $newformat = date('Y-m-d', $time);
+        return $newformat;
     }
 }

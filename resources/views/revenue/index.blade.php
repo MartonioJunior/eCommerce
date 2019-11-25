@@ -1,4 +1,4 @@
 <tr>
-  <td contenteditable="false">07/09/2019</td>
-  <td contenteditable="false">545,45</td>
+  <td contenteditable="false">{{ $revenue["date"] }}</td>
+  <td contenteditable="false">R$ {{ $revenue["amount"]}}</td>
 </tr>

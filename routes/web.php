@@ -27,7 +27,7 @@ Route::group(['middleware' => 'auth:client'], function() {
 
 	Route::get('/purchase/{id}/add/{amount}', 'PurchaseController@add');
 	Route::get('/purchase/{id}/delete','PurchaseController@delete');
-	Route::get('/purchase/save','PurchaseController@save');
+	Route::post('/purchase/save','PurchaseController@save');
 });
 
 Route::group(['middleware' => 'auth:admin'], function() {
@@ -40,6 +40,8 @@ Route::group(['middleware' => 'auth:admin'], function() {
 
 	Route::get('/category/{id}/delete','CategoryController@delete');
 	Route::post('/category/{id}/save','CategoryController@save');
+
+	Route::post('/admin/profile/revenue','AdminController@revenue');
 
 	Route::get('image/upload/{name}','ImageController@upload');
 });

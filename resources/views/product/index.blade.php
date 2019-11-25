@@ -5,6 +5,9 @@
             <h3 class="card-title">
                 {{ $product->name }}
             </h3>
+            <h4 class="card-title">
+                <b>ID: </b>{{ $product->id }}
+            </h4>
             <div class="row col-md-12">
                 @each('category.index', $product->categories, 'category')
             </div>

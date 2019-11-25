@@ -1,6 +1,6 @@
 <tr>
   <td contenteditable="false">#{{ $purchase->id }}</td>
-  <td contenteditable="false">{{ $purchase->CREATED_AT }}</td>
+  <td contenteditable="false">{{ $purchase->dateOfPurchase() }}</td>
   <td contenteditable="false">R${{ $purchase->getTotalValue() }}</td>
   <td contenteditable="false">{{ $purchase->buyer->name }}</td>
   <td>

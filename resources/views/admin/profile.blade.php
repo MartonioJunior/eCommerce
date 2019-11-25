@@ -37,7 +37,6 @@
 			</form>
 		</div>
 	</div>
-	@include('admin.revenue')
 	@include('purchase.editor')
 	@include('product.editor')
 	@include('category.editor')
@@ -50,6 +49,7 @@
 			@endif
 		@endforeach
 	</div>
+	@include('admin.revenue')
 	<h3 class="my-2">Outras opções</h3>
 	<a href="{{ url('admin/delete') }}" class="btn btn-danger btn-block btn-flat">Excluir conta</a>
 	<div class="py-4"></div>

@@ -8,21 +8,40 @@ use App\Business\ProductBusiness;
 
 class PurchaseBusiness {
 	public static function listAll() {
-		return Purchase::all()->get();
+		return Purchase::all();
 	}
 
 	public static function list($id) {
-		return Purchase::where('id',$id)-get();
+		return Purchase::where('id',$id)->get();
 	}
 
 	public static function create($client, $listProducts) {
 		$purchase = new Purchase;
-		for ($productAmount as $productData) {
-			$this->add($productData["id"], $this, $productData["amount"]);
-		}
-		$purchase->buyer()->attach($client);
+		$purchase->id = PurchaseBusiness::listAll()->count() + 1;
+		$purchase->date_time = date('Y-m-d H:i:s');
+		$purchase->buyer()->associate($client);
 		$purchase->save();
-		return $purchase
+		$array_products = [];
+		foreach ($listProducts as $productData) {
+			$id = (int)$productData["id"];
+			$amount = (int)$productData["amount"];
+			$product_list = ProductBusiness::list($id);
+			foreach($product_list as $product) {
+				if($product->amountStock >= $amount) {
+					PurchaseBusiness::add($id, $purchase, $amount);
+					$product->amountStock -= $amount;
+					array_push($array_products, $product);
+				} else {
+					PurchaseBusiness::delete($id);
+					return false;
+				}
+			}
+		}
+		foreach ($array_products as $product) {
+			$product->save();	
+		}
+		$purchase->save();
+		return $purchase;
 	}
 
 	public static function update($id, $newData) {
@@ -35,8 +54,7 @@ class PurchaseBusiness {
 	}
 
 	public static function add($product, $toPurchase, $amount) {
-		$purchase->products()->attach($product,['amount' => $amount]);
-		$purchase->save();
+		$toPurchase->products()->attach($product, ['amount' => $amount]);
 	}
 
 	public static function removeProduct($withID, $toPurchase) {
