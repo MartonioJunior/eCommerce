@@ -18,7 +18,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/product">Produtos</a>
         </li>
-        @if(Auth::guard('client')->check())
+        @if(!Auth::guard('admin')->check())
           <li class="nav-item">
             <a class="nav-link" href="/cart">Carrinho</a>
           </li>

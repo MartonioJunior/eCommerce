@@ -14,12 +14,11 @@ use App\Business\AdminBusiness;
 class AdminController extends Controller
 {
     public function profile() {
-        $clients = $this->clientReport();
         $products = $this->productReport();
     	return view('admin.profile', [
     		'products' => Product::all(),
     		'categories' => Category::all(),
-    		'clients' => $clients,
+    		'clients' => [],
     		'purchases' => Purchase::all(),
             'revenues' => [],
             'start' => "2019-09-07",
@@ -28,11 +27,13 @@ class AdminController extends Controller
     }
 
     public function revenue(Request $request) {
+        $GLOBALS['status'] = "request";
         $startDate = $request->input("startDate");
         $endDate = $request->input("endDate");
-        $clients = $this->clientReport();
+        $clients = $this->clientReport(strtotime($startDate), strtotime($endDate));
         $products = $this->productReport();
-        $revenues = $this->moneyReport($startDate, $endDate);
+        $revenues = $this->moneyReport(strtotime($startDate), strtotime($endDate));
+        $GLOBALS['status'] = "display";
         return view('admin.profile', [
             'products' => Product::all(),
             'categories' => Category::all(),
@@ -44,11 +45,9 @@ class AdminController extends Controller
         ]);
     }
 
-    public function moneyReport($startDate, $endDate) {
+    public function moneyReport($timeStart, $timeEnd) {
         $purchases = Purchase::all();
         $dict_revenue = [];
-        $timeStart = strtotime($startDate);
-        $timeEnd = strtotime($endDate);
         foreach (Purchase::all() as $purchase) {
             $item = [];
             $date = $purchase->dateOfPurchase();
@@ -83,15 +82,20 @@ class AdminController extends Controller
         return $products;
     }
 
-    public function clientReport() {
+    public function clientReport($startTime, $endTime) {
         $clients = [];
+        $GLOBALS['startTime'] = $startTime;
+        $GLOBALS['endTime'] = $endTime;
         foreach (Client::all() as $client) {
             array_push($clients, $client);
         }
-        $results = usort($clients, function($a, $b) {
-            return $a->getNumberOfPurchases() < $b->getNumberOfPurchases();
+        $filteredResults = array_filter($clients, function($obj) {
+            return $obj->getNumberOfPurchasesFrom($GLOBALS['startTime'], $GLOBALS['endTime']) != 0;
         });
-        return $clients;
+        usort($filteredResults, function($a, $b) {
+            return $a->getNumberOfPurchasesFrom($GLOBALS['startTime'], $GLOBALS['endTime']) < $b->getNumberOfPurchasesFrom($GLOBALS['startTime'], $GLOBALS['endTime']);
+        });
+        return $filteredResults;
     }
 
     public function update(Request $request) {

@@ -1,4 +1,4 @@
-<form id="P{{ $product->id ?? "-1" }}" action="/product/{{ $product->id ?? "-1" }}/save" method="POST">
+<form id="P{{ $product->id ?? "-1" }}" action="/product/{{ $product->id ?? "-1" }}/save" enctype="multipart/form-data" method="POST">
   <input type="hidden" name="_token" value="{{ csrf_token() }}">
   <tr {{ $attr ?? "" }}>
     <th scope="row">{{ $product->id ?? "New" }}</th>
@@ -17,7 +17,7 @@
     </td>
     <td>
       <img id="photoP{{ $product->id ?? "-1" }}" class="img-fluid h-25" src="{{ $product->photo ?? "" }}" alt="">
-      <input form="P{{ $product->id ?? "-1" }}" class="py-2" type="file" name="pic{{ $product->id ?? "-1" }}" value="{{ $product->photo ?? "" }}" accept="image/*">
+      <input form="P{{ $product->id ?? "-1" }}" class="py-2" type="file" name="photoP{{ $product->id ?? "-1" }}" value="{{ $product->photo ?? "" }}" accept="image/*">
     </td>
     <td>
       <input form="P{{ $product->id ?? "-1" }}" type="submit" class="btn btn-success" value="Salvar">

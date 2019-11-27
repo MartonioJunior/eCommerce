@@ -30,4 +30,18 @@ class Client extends Authenticatable
     public function getNumberOfPurchases() {
         return count($this->purchases);
     }
+
+    public function getNumberOfPurchasesFrom($fromTime, $toTime) {
+        $counter = 0;
+        foreach ($this->purchases as $purchase) {
+            $date = $purchase->dateOfPurchase();
+            $time = strtotime($date);
+            $startTime = $fromTime;
+            $endTime = $toTime;
+            if ($fromTime < $time && $toTime > $time) {
+                $counter++;
+            }
+        }
+        return $counter;
+    }
 }

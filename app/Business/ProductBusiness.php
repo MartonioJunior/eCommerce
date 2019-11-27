@@ -18,14 +18,14 @@ class ProductBusiness {
 		return Product::where('id', $id)->get();
 	}
 
-	public static function create($name, $price, $amountStock, $description, $photo) {
+	public static function create($name, $price, $amountStock, $description) {
 		$product = new Product;
 
 		$product->name = $name;
 		$product->price = $price;
 		$product->amountStock = $amountStock;
 		$product->description = $description;
-		$product->photo = $photo ?? "/images/placeholder-product.jpg";	
+		$product->photo = "/images/placeholder-product.jpg";	
 
 		$product->save();
 		return $product;

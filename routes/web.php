@@ -15,7 +15,10 @@ Route::redirect('/login','/login/client');
 
 Route::get('/', 'ProductController@productsInStock');
 Route::get('/product','ProductController@allProducts');
+
 Route::get('/cart','PurchaseController@cartProducts');
+Route::get('/purchase/{id}/add/{amount}', 'PurchaseController@add');
+Route::get('/purchase/{id}/delete','PurchaseController@delete');
 
 Route::get('/logout', 'Auth\LoginController@logout');
 
@@ -25,8 +28,6 @@ Route::group(['middleware' => 'auth:client'], function() {
 	Route::post('/client/edit','ClientController@update');
 	Route::post('/purchase', function() {});
 
-	Route::get('/purchase/{id}/add/{amount}', 'PurchaseController@add');
-	Route::get('/purchase/{id}/delete','PurchaseController@delete');
 	Route::post('/purchase/save','PurchaseController@save');
 });
 
@@ -42,8 +43,6 @@ Route::group(['middleware' => 'auth:admin'], function() {
 	Route::post('/category/{id}/save','CategoryController@save');
 
 	Route::post('/admin/profile/revenue','AdminController@revenue');
-
-	Route::get('image/upload/{name}','ImageController@upload');
 });
 
 Route::group(['middleware' => 'guest'], function() {

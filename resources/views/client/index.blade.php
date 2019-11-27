@@ -7,7 +7,7 @@
         </div>
         <div class="info">
             <h5 class="desc py-2 px-2"><b>ID:</b> {{ $client->id }}</h5>
-            <h6 class="desc py-2 px-2">{{ $client->getNumberOfPurchases() }} compras feitas</h6>
+            <h6 class="desc py-2 px-2">{{ $client->getNumberOfPurchasesFrom(strtotime($start), strtotime($end)) }} compras feitas</h6>
         </div>
     </div>
 
